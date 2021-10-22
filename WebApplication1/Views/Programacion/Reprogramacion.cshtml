@@ -1,0 +1,197 @@
+﻿<div class="page-title">
+    <div class="content-title">
+        <h3>Modificación Horario</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="#">Modificación Horario</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="card-header">
+    <div>
+        <input type="text" />
+    </div>
+    <div class="col-12 col-md-12">
+        <label>Nombre completo:</label><label id="lblNombreConductor"></label>
+        <br />
+        <label>R.U.N.:</label><label id="lblRutConductor"></label>
+    </div>
+</div>
+
+<br />
+
+@*JORNADA MAÑANA*@
+
+<div class="row card-body">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-primary">Jornada 1</h4>
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idLunesT1"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalLu1" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idMartesT1"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalMa1" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idMiercolesT1"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalMi1" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idJuevesT1"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalJu1" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idViernesT1"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalVi1" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idSabadoT1"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalSa1" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idDomingoT1"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalDo1" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+        </div>
+    </div>
+
+
+
+    @*JORNADA TARDE*@
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-primary">Jornada 2</h4>
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idLunesT2"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalLu2" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+
+            <div class="col-4 col-md-4">
+                <label id="idMartesT2"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalMa2" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idMiercolesT2"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalMi2" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idJuevesT2"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalJu2" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idViernesT2"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalVi2" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idSabadoT2"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalSa2" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+            <div class="col-4 col-md-4">
+                <label id="idDomingoT2"></label>
+                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminaldo2" class="form-control"></select>
+                <input type="checkbox" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <button class="btn btn-success">Guardar cambios</button>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            CargaFechasDias();
+
+            $(".input-num").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+        });
+
+        function CargaFechasDias() {
+            $.ajax({
+                url: '../Reprogramacion/ObtenerFechaLunes',
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: null,
+                success: function (data) {
+                    let fechaLunes = data.data.split(' ')[0];
+
+                    let dia = fechaLunes.split('/')[0];
+                    let mes = fechaLunes.split('/')[1];
+                    let anio = fechaLunes.split('/')[2];
+
+                    $("#idLunesT1").text("Lunes " + parseInt(dia) + "/" + mes + "/" + anio);
+                    $("#idMartesT1").text("Martes " + (parseInt(dia) + 1) + "/" + mes + "/" + anio);
+                    $("#idMiercolesT1").text("Miércoles " + (parseInt(dia) + 2) + "/" + mes + "/" + anio);
+                    $("#idJuevesT1").text("Jueves " + (parseInt(dia) + 3) + "/" + mes + "/" + anio);
+                    $("#idViernesT1").text("Viernes " + (parseInt(dia) + 4) + "/" + mes + "/" + anio);
+                    $("#idSabadoT1").text("Sábado " + (parseInt(dia) + 5) + "/" + mes + "/" + anio);
+                    $("#idDomingoT1").text("Domingo " + (parseInt(dia) + 6) + "/" + mes + "/" + anio);
+
+
+                    $("#idLunesT2").text("Lunes " + parseInt(dia) + "/" + mes + "/" + anio);
+                    $("#idMartesT2").text("Martes " + (parseInt(dia) + 1) + "/" + mes + "/" + anio);
+                    $("#idMiercolesT2").text("Miércoles " + (parseInt(dia) + 2) + "/" + mes + "/" + anio);
+                    $("#idJuevesT2").text("Jueves " + (parseInt(dia) + 3) + "/" + mes + "/" + anio);
+                    $("#idViernesT2").text("Viernes " + (parseInt(dia) + 4) + "/" + mes + "/" + anio);
+                    $("#idSabadoT2").text("Sábado " + (parseInt(dia) + 5) + "/" + mes + "/" + anio);
+                    $("#idDomingoT2").text("Domingo " + (parseInt(dia) + 6) + "/" + mes + "/" + anio);
+                },
+                error: function () {
+                    alertDanger("Ups! algo ha salido mal, pero lo estamos solucionando");
+                }
+            });
+
+
+
+        }
+
+
+    </script>
+}
