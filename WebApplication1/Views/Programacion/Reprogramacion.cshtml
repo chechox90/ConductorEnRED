@@ -1,4 +1,10 @@
-﻿<div class="page-title">
+﻿<style>
+    .unMargen {
+        margin: 20px;
+    }
+</style>
+
+<div class="page-title">
     <div class="content-title">
         <h3>Modificación Horario</h3>
         <nav aria-label="breadcrumb">
@@ -25,53 +31,56 @@
 
 @*JORNADA MAÑANA*@
 
-<div class="row card-body">
+<div class="form-row">
+
     <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="text-primary">Jornada 1</h4>
-            </div>
-            <div class="col-4 col-md-4">
-                <label id="idLunesT1"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalLu1" class="form-control"></select>
-                <input type="checkbox" />
-            </div>
-            <div class="col-4 col-md-4">
-                <label id="idMartesT1"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalMa1" class="form-control"></select>
-                <input type="checkbox" />
-            </div>
-            <div class="col-4 col-md-4">
-                <label id="idMiercolesT1"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalMi1" class="form-control"></select>
-                <input type="checkbox" />
-            </div>
-            <div class="col-4 col-md-4">
-                <label id="idJuevesT1"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalJu1" class="form-control"></select>
-                <input type="checkbox" />
-            </div>
-            <div class="col-4 col-md-4">
-                <label id="idViernesT1"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalVi1" class="form-control"></select>
-                <input type="checkbox" />
-            </div>
-            <div class="col-4 col-md-4">
-                <label id="idSabadoT1"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalSa1" class="form-control"></select>
-                <input type="checkbox" />
-            </div>
-            <div class="col-4 col-md-4">
-                <label id="idDomingoT1"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalDo1" class="form-control"></select>
-                <input type="checkbox" />
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-primary">Jornada 1</h4>
+                </div>
+                <div class="form-row">
+                    <label class="col-md-3" id="idLunesT1"></label>
+                    <input class="form-control col-md-3 format-time bg-white" type="text" placeholder="HH:mm" />
+                    <select id="ddlTerminalLu1" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="checkbox" />
+                </div>
+                <div class="form-row">
+                    <label class="col-md-3" id="idMartesT1"></label>
+                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                    <select id="ddlTerminalMa1" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="checkbox" />
+                </div>
+                <div class="form-row">
+                    <label class="col-md-3" id="idMiercolesT1"></label>
+                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                    <select id="ddlTerminalMi1" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="checkbox" />
+                </div>
+                <div class="form-row">
+                    <label class="col-md-3" id="idJuevesT1"></label>
+                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                    <select id="ddlTerminalJu1" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="checkbox" />
+                </div>
+                <div class="form-row">
+                    <label class="col-md-3" id="idViernesT1"></label>
+                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                    <select id="ddlTerminalVi1" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="checkbox" />
+                </div>
+                <div class="form-row">
+                    <label class="col-md-3" id="idSabadoT1"></label>
+                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                    <select id="ddlTerminalSa1" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="checkbox" />
+                </div>
+                <div class="form-row">
+                    <label class="col-md-3" id="idDomingoT1"></label>
+                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                    <select id="ddlTerminalDo1" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="checkbox" />
+                </div>
             </div>
         </div>
     </div>
@@ -85,56 +94,58 @@
             <div class="card-header">
                 <h4 class="text-primary">Jornada 2</h4>
             </div>
-            <div class="col-4 col-md-4">
-                <label id="idLunesT2"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalLu2" class="form-control"></select>
-                <input type="checkbox" />
+            <div class="form-row">
+                <label class="col-md-3" id="idLunesT2"></label>
+                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalLu2" class="form-control col-md-3"></select>
+                <input class="col-md-3" type="checkbox" />
             </div>
 
-            <div class="col-4 col-md-4">
-                <label id="idMartesT2"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalMa2" class="form-control"></select>
-                <input type="checkbox" />
+            <div class="form-row">
+                <label class="col-md-3" id="idMartesT2"></label>
+                <input class="form-control col-md-3 format-time bg-white" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalMa2" class="form-control col-md-3"></select>
+                <input class="col-md-3" type="checkbox" />
             </div>
-            <div class="col-4 col-md-4">
-                <label id="idMiercolesT2"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalMi2" class="form-control"></select>
-                <input type="checkbox" />
+            <div class="form-row">
+                <label class="col-md-3" id="idMiercolesT2"></label>
+                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalMi2" class="form-control col-md-3"></select>
+                <input class="col-md-3" type="checkbox" />
             </div>
-            <div class="col-4 col-md-4">
-                <label id="idJuevesT2"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalJu2" class="form-control"></select>
-                <input type="checkbox" />
+            <div class="form-row">
+                <label class="col-md-3" id="idJuevesT2"></label>
+                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalJu2" class="form-control col-md-3"></select>
+                <input class="col-md-3" type="checkbox" />
             </div>
-            <div class="col-4 col-md-4">
-                <label id="idViernesT2"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalVi2" class="form-control"></select>
-                <input type="checkbox" />
+            <div class="form-row">
+                <label class="col-md-3" id="idViernesT2"></label>
+                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalVi2" class="form-control col-md-3"></select>
+                <input class="col-md-3" type="checkbox" />
             </div>
-            <div class="col-4 col-md-4">
-                <label id="idSabadoT2"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalSa2" class="form-control"></select>
-                <input type="checkbox" />
+            <div class="form-row">
+                <label class="col-md-3" id="idSabadoT2"></label>
+                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminalSa2" class="form-control col-md-3"></select>
+                <input class="col-md-3" type="checkbox" />
             </div>
-            <div class="col-4 col-md-4">
-                <label id="idDomingoT2"></label>
-                <input class="form-control format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminaldo2" class="form-control"></select>
-                <input type="checkbox" />
+            <div class="form-row">
+                <label class="col-md-3" id="idDomingoT2"></label>
+                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
+                <select id="ddlTerminaldo2" class="form-control col-md-3"></select>
+                <input class="col-md-3" type="checkbox" />
             </div>
         </div>
     </div>
+
+    <div>
+        <button class="btn btn-success">Guardar cambios</button>
+    </div>
 </div>
 
-<div>
-    <button class="btn btn-success">Guardar cambios</button>
-</div>
+
 
 
 @section scripts

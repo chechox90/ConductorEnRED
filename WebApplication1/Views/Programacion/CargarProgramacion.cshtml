@@ -9,7 +9,7 @@
         border-radius: .4rem;
         text-align: center;
         width: 100% !important;
-        height: 250px;
+        height: 180px;
         overflow: hidden;
     }
 
@@ -27,7 +27,7 @@
         .files:after {
             pointer-events: none;
             position: absolute;
-            top: 60px;
+            top: 15px;
             left: 0;
             right: 0;
             font-family: "Font Awesome 5 Pro";
@@ -44,7 +44,7 @@
         .files:before {
             content: "Haz click aquí para añadir un archivo";
             position: absolute;
-            bottom: 55px;
+            bottom: 60px;
             left: 0;
             right: 0;
             display: block;
@@ -68,6 +68,14 @@
         width: 0;
         opacity: 0;
     }
+
+    .borde-carga {
+        margin:20px;
+    }
+
+    .borde-label {
+        margin:4px;
+    }
 </style>
 
 <div class="page-title">
@@ -82,20 +90,21 @@
     </div>
 </div>
 <div class="jumbotron">
-    <div class="card col-md-6">
-        <div id="pnlTblDatosServicios">
-            <div class="form-group">
-                <div>
-                    <label>Nombre de la carga</label>
-                </div>
-                <div>
-                    <input id="txtNombreCarga" type="text" />
-                </div>
-            </div>
-
+    <div class="card col-md-12">
+        <div class="borde-carga">
             <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label>Fecha Carga</label>
+                <div class="form-row col-md-4">
+                    <div class="borde-label">
+                        <label>Nombre de la carga</label>
+                    </div>
+                    <div>
+                        <input id="txtNombreCarga" type="text" />
+                    </div>
+                </div>
+                <div class="form-row col-md-4">
+                    <div class="borde-label">
+                        <label>Fecha Carga</label>
+                    </div>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text pr-01"><i class="far fa-calendar-alt"></i></span>
@@ -103,18 +112,17 @@
                         <input type="text" class="form-control dateinput opacity-1" id="FechaCargaArchivo" name="FechaCargaArchivo" autocomplete="off" required readonly />
                     </div>
                 </div>
+                <div class="form-row col-md-4">
+                    <div class="borde-label">
+                        <label>Comentario adicional</label>
+                    </div>
+                    <div>
+                        <input type="text" id="txtComenatrio" />
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <div>
-                    <label>Comentario adicional</label>
-                </div>
-                <div>
-                    <input type="text" id="txtComenatrio" />
-                </div>
-            </div>
-
-            <div class="form-group files">
+            <div class="form-group files col-md-12">
                 <input name="ArchivoHorario" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" id="FILE-ARCHIVO" required onchange="SubirArchivos(this.value)" />
             </div>
 
@@ -166,12 +174,17 @@
     {
     <script>
         $(document).ready(function () {
-
+            //$("#tblHorarioCargar").DataTable({
+            //    language: {
+            //        "url": "../Plugins/DataTables/js/Spanish.json"
+            //    },
+            //});
         });
         var tablaArchivo = null;
+
         function SubirArchivos(element) {
             $(".files input").css("color", "#00CA18");
-            $(".files").addClass('added').attr('data-content', 'Archivo Añadido');
+            $(".files").addClass('added').attr('data-content', '');
 
             $("#msg").html("");
             if (element.value != '') {
@@ -183,7 +196,6 @@
                 var respuesta = ValidaSizeFile(files)
 
             }
-
 
         }
 
@@ -308,38 +320,28 @@
                             $("#txtComenatrio").val('');
                             $("#FILE-ARCHIVO").val("");
 
-                            var fila = '';
-                            for (var i = 0; i < data.data.length; i++) {
-                                fila += "<tr class='text-center'>" +
-                                    "<td>" + data.data[i]['RUT'] + "</td>" +
-                                    "<td>" + data.data[i]['NOMBRE'] + "</td>" +
-                                    "<td>" + data.data[i]['APELLIDO'] + "</td>" +
-                                    "<td>" + data.data[i]['NOMBRE_TERMINAL'] + "</td>" +
-                                    "<td>" + data.data[i]['TERMINAL_INICIO'] + "</td>" +
-                                    "<td>" + data.data[i]['FECHA_INICIO'] + "</td>" +
-                                    "<td>" + data.data[i]['HORA_INICIO'] + "</td>" +
-                                    "</tr>";
-                            }
-                            $("#tblHorarioCargar").append(fila);
+                            $('#tblHorarioCargar').DataTable({
+                                dom: "<'modal-header flex-column flex-md-row align-items-md-center'<'.titleSegui'><'d-flex justify-content-md-end align-items-center'fB<'.closeBtn'>>>" + "<'row'<'col-12'tr>>",
+                                language: {
+                                    "url": "../Plugins/DataTables/js/Spanish.json"
+                                },
+                                data: data.data,
+                                columns: [
+                                    { data: 'RUT' },
+                                    { data: 'NOMBRE' },
+                                    { data: 'APELLIDO' },
+                                    { data: 'NOMBRE_TERMINAL' },
+                                    { data: 'TERMINAL_INICIO' },
+                                    { data: 'FECHA_INICIO' },
+                                    { data: 'HORA_INICIO' }
+                                ],
+                                buttons: [
 
-                            //tablaArchivo = $("#tblHorarioCargar").DataTable({
-                            //    scrollX: true,
-                            //    scrollY: true,
-                            //    lengthChange: true,
-                            //    pageLength: 25,
-                            //    lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "Todos"]],
-                            //    columnDefs: [
-                            //        { targets: [2, 3, 4, 5, 6, 7, 8, 9, 10,], searchable: false, orderable: false }
-                            //    ],
-                            //    language: {
-                            //        "url": "../Plugins/DataTables/js/Spanish.json"
-                            //    },
-                            //    order: [[4, "desc"]],
-                            //    initComplete: function () {
-                            //        $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-                            //    },
-                            //});
-                            //$.fn.DataTable.ext.pager.numbers_length = 5;
+                                    { extend: 'excel', className: 'btn btn-success', text: 'Descargar Excel', action: function () { getExcel() }, init: function (api, node, config) { $(node).removeClass('btn-secondary') } }
+                                ],
+                                order: [[1, "desc"]]
+                            });
+
                         }
 
                     },
@@ -347,8 +349,40 @@
                         alertDanger("Ha ocurrido un problema al hacer el ingreso, intente nuevamente");
                     }
                 });
-            }
+
+
+            };
         }
+
+                        //function getExcel() {
+                        //    $.ajax({
+                        //        url: '../PlanillasControl/getExcelReporteSeguimientoPlanilla',
+                        //        dataType: 'json',
+                        //        data: {
+                        //            idFolio: $("#idFolio").val(),
+                        //        },
+                        //        beforeSend: function () {
+                        //            $(".loader-1").show();
+                        //            $(".loader-1 p").text("Generando Excel...");
+                        //        },
+                        //        complete: function () {
+                        //            $(".loader-1").hide();
+                        //        },
+                        //        success: function (data) {
+                        //            $("#btnGenerarExcel").button('reset');
+                        //            if (data.error) {
+                        //                alert(data.message);
+                        //            } else {
+                        //                window.location.href = "../PlanillasControl/downloadExcel?filepath=" + data.message;
+                        //            }
+
+                        //        },
+                        //        error: function (xhr, ajaxOptions, thrownError) {
+                        //            alertDanger("Demasiados datos para generar excel");
+                        //        }
+                        //    });
+
+                        //}
 
     </script>
 }
