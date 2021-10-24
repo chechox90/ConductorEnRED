@@ -47,8 +47,8 @@ namespace DLL.DATA.SeguridadSoluinfo
         public virtual DbSet<SERVICIO> SERVICIO { get; set; }
         public virtual DbSet<SERVICIO_REALIZADO> SERVICIO_REALIZADO { get; set; }
         public virtual DbSet<TERMINAL> TERMINAL { get; set; }
-        public virtual DbSet<USUARIOS_SISTEMA> USUARIOS_SISTEMA { get; set; }
         public virtual DbSet<HORARIO_CONDUCTOR> HORARIO_CONDUCTOR { get; set; }
+        public virtual DbSet<USUARIOS_SISTEMA> USUARIOS_SISTEMA { get; set; }
         public virtual DbSet<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
     }
 }

@@ -128,6 +128,9 @@
     <Compile Include="SeguridadSoluinfo\TIPOS_NOVEDADES.cs">
       <DependentUpon>Soluseg.tt</DependentUpon>
     </Compile>
+    <Compile Include="SeguridadSoluinfo\TIPO_CONTRATO.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
     <Compile Include="SeguridadSoluinfo\TIPO_MOVIEMIENTO_HORARIO.cs">
       <DependentUpon>Soluseg.tt</DependentUpon>
     </Compile>

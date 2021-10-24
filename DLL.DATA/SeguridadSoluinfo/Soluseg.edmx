@@ -255,6 +255,7 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
           <Property Name="ID_CARGA_HORARIO" Type="int" Nullable="false" />
           <Property Name="ID_USUARIO" Type="int" Nullable="false" />
           <Property Name="ID_TERMINAL_INICIO" Type="int" Nullable="false" />
+          <Property Name="NUMERO_JORNADA" Type="smallint" Nullable="false" />
           <Property Name="FECHA_INICIO" Type="datetime" Nullable="false" />
           <Property Name="HORARIO_CUBIERTO" Type="bit" Nullable="false" />
           <Property Name="ID_BUS_INICIO" Type="int" />
@@ -323,8 +324,10 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
           <Key>
             <PropertyRef Name="ID_TIPO_CONTRATO" />
           </Key>
-          <Property Name="ID_TIPO_CONTRATO" Type="int" Nullable="false" />
+          <Property Name="ID_TIPO_CONTRATO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOMBRE_TIPO_CONTRATO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NOMBRE_CORTO_CONTRATRO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CANTIDAD_HORAS_CONTRATO" Type="time" Precision="5" Nullable="false" />
           <Property Name="ESTADO" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_ACCIONES_MENU">
@@ -687,7 +690,7 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO">
+        <Association Name="FK_USUARIOS_SISTEMA_TIPO_CONTRATO">
           <End Role="TIPO_CONTRATO" Type="Self.TIPO_CONTRATO" Multiplicity="1" />
           <End Role="USUARIOS_SISTEMA" Type="Self.USUARIOS_SISTEMA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -888,7 +891,7 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
             <End Role="EMPRESA" EntitySet="EMPRESA" />
             <End Role="USUARIOS_SISTEMA" EntitySet="USUARIOS_SISTEMA" />
           </AssociationSet>
-          <AssociationSet Name="FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO" Association="Self.FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO">
+          <AssociationSet Name="FK_USUARIOS_SISTEMA_TIPO_CONTRATO" Association="Self.FK_USUARIOS_SISTEMA_TIPO_CONTRATO">
             <End Role="TIPO_CONTRATO" EntitySet="TIPO_CONTRATO" />
             <End Role="USUARIOS_SISTEMA" EntitySet="USUARIOS_SISTEMA" />
           </AssociationSet>
@@ -1222,8 +1225,16 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
             <End Role="TERMINAL" EntitySet="TERMINAL" />
             <End Role="SERVICIO_REALIZADO" EntitySet="SERVICIO_REALIZADO" />
           </AssociationSet>
-          <EntitySet Name="USUARIOS_SISTEMA" EntityType="SoluinfoModel.USUARIOS_SISTEMA" />
           <EntitySet Name="HORARIO_CONDUCTOR" EntityType="SoluinfoModel.HORARIO_CONDUCTOR" />
+          <AssociationSet Name="FK_HORARIO_CONDUCTOR_CARGA_HORARIO" Association="SoluinfoModel.FK_HORARIO_CONDUCTOR_CARGA_HORARIO">
+            <End Role="CARGA_HORARIO" EntitySet="CARGA_HORARIO" />
+            <End Role="HORARIO_CONDUCTOR" EntitySet="HORARIO_CONDUCTOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR" Association="SoluinfoModel.FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR">
+            <End Role="HORARIO_CONDUCTOR" EntitySet="HORARIO_CONDUCTOR" />
+            <End Role="SERVICIO_REALIZADO" EntitySet="SERVICIO_REALIZADO" />
+          </AssociationSet>
+          <EntitySet Name="USUARIOS_SISTEMA" EntityType="SoluinfoModel.USUARIOS_SISTEMA" />
           <EntitySet Name="TIPO_CONTRATO" EntityType="SoluinfoModel.TIPO_CONTRATO" />
           <AssociationSet Name="FK_CARGA_HORARIO_USUARIOS_SISTEMA" Association="SoluinfoModel.FK_CARGA_HORARIO_USUARIOS_SISTEMA">
             <End Role="USUARIOS_SISTEMA" EntitySet="USUARIOS_SISTEMA" />
@@ -1245,17 +1256,9 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
             <End Role="EMPRESA" EntitySet="EMPRESA" />
             <End Role="USUARIOS_SISTEMA" EntitySet="USUARIOS_SISTEMA" />
           </AssociationSet>
-          <AssociationSet Name="FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO" Association="SoluinfoModel.FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO">
+          <AssociationSet Name="FK_USUARIOS_SISTEMA_TIPO_CONTRATO" Association="SoluinfoModel.FK_USUARIOS_SISTEMA_TIPO_CONTRATO">
             <End Role="TIPO_CONTRATO" EntitySet="TIPO_CONTRATO" />
             <End Role="USUARIOS_SISTEMA" EntitySet="USUARIOS_SISTEMA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HORARIO_CONDUCTOR_CARGA_HORARIO" Association="SoluinfoModel.FK_HORARIO_CONDUCTOR_CARGA_HORARIO">
-            <End Role="CARGA_HORARIO" EntitySet="CARGA_HORARIO" />
-            <End Role="HORARIO_CONDUCTOR" EntitySet="HORARIO_CONDUCTOR" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR" Association="SoluinfoModel.FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR">
-            <End Role="HORARIO_CONDUCTOR" EntitySet="HORARIO_CONDUCTOR" />
-            <End Role="SERVICIO_REALIZADO" EntitySet="SERVICIO_REALIZADO" />
           </AssociationSet>
           <AssociationSet Name="PERFIL_USUARIO_SISTEMA" Association="SoluinfoModel.PERFIL_USUARIO_SISTEMA">
             <End Role="PERFILES" EntitySet="PERFILES" />
@@ -1349,8 +1352,8 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
           <Property Name="FECHA_CARGA" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ESTADO" Type="Boolean" Nullable="false" />
           <Property Name="NUMERO_JORNADA" Type="Int16" />
-          <NavigationProperty Name="USUARIOS_SISTEMA" Relationship="SoluinfoModel.FK_CARGA_HORARIO_USUARIOS_SISTEMA" FromRole="CARGA_HORARIO" ToRole="USUARIOS_SISTEMA" />
           <NavigationProperty Name="HORARIO_CONDUCTOR" Relationship="SoluinfoModel.FK_HORARIO_CONDUCTOR_CARGA_HORARIO" FromRole="CARGA_HORARIO" ToRole="HORARIO_CONDUCTOR" />
+          <NavigationProperty Name="USUARIOS_SISTEMA" Relationship="SoluinfoModel.FK_CARGA_HORARIO_USUARIOS_SISTEMA" FromRole="CARGA_HORARIO" ToRole="USUARIOS_SISTEMA" />
         </EntityType>
         <EntityType Name="COMUNA">
           <Key>
@@ -1427,8 +1430,8 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
           <NavigationProperty Name="SERVICIO" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_SERVICIO" FromRole="SERVICIO_REALIZADO" ToRole="SERVICIO" />
           <NavigationProperty Name="TERMINAL" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_TERMINAL" FromRole="SERVICIO_REALIZADO" ToRole="TERMINAL" />
           <Property Name="HORAS_EXTRAS" Type="Time" Precision="5" />
-          <NavigationProperty Name="USUARIOS_SISTEMA" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_USUARIOS_SISTEMA" FromRole="SERVICIO_REALIZADO" ToRole="USUARIOS_SISTEMA" />
           <NavigationProperty Name="HORARIO_CONDUCTOR" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR" FromRole="SERVICIO_REALIZADO" ToRole="HORARIO_CONDUCTOR" />
+          <NavigationProperty Name="USUARIOS_SISTEMA" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_USUARIOS_SISTEMA" FromRole="SERVICIO_REALIZADO" ToRole="USUARIOS_SISTEMA" />
         </EntityType>
         <EntityType Name="TERMINAL">
           <Key>
@@ -1527,6 +1530,46 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="HORARIO_CONDUCTOR">
+          <Key>
+            <PropertyRef Name="ID_HORARIO" />
+          </Key>
+          <Property Name="ID_HORARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CARGA_HORARIO" Type="Int32" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="ID_TERMINAL_INICIO" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_INICIO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HORARIO_CUBIERTO" Type="Boolean" Nullable="false" />
+          <Property Name="ID_BUS_INICIO" Type="Int32" />
+          <Property Name="ESTADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CARGA_HORARIO" Relationship="SoluinfoModel.FK_HORARIO_CONDUCTOR_CARGA_HORARIO" FromRole="HORARIO_CONDUCTOR" ToRole="CARGA_HORARIO" />
+          <NavigationProperty Name="SERVICIO_REALIZADO" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR" FromRole="HORARIO_CONDUCTOR" ToRole="SERVICIO_REALIZADO" />
+          <Property Name="NUMERO_JORNADA" Type="Int16" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HORARIO_CONDUCTOR_CARGA_HORARIO">
+          <End Type="SoluinfoModel.CARGA_HORARIO" Role="CARGA_HORARIO" Multiplicity="1" />
+          <End Type="SoluinfoModel.HORARIO_CONDUCTOR" Role="HORARIO_CONDUCTOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGA_HORARIO">
+              <PropertyRef Name="ID_CARGA_HORARIO" />
+            </Principal>
+            <Dependent Role="HORARIO_CONDUCTOR">
+              <PropertyRef Name="ID_CARGA_HORARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR">
+          <End Type="SoluinfoModel.HORARIO_CONDUCTOR" Role="HORARIO_CONDUCTOR" Multiplicity="1" />
+          <End Type="SoluinfoModel.SERVICIO_REALIZADO" Role="SERVICIO_REALIZADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HORARIO_CONDUCTOR">
+              <PropertyRef Name="ID_HORARIO" />
+            </Principal>
+            <Dependent Role="SERVICIO_REALIZADO">
+              <PropertyRef Name="ID_HORARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="USUARIOS_SISTEMA">
           <Key>
             <PropertyRef Name="ID_USUARIO" />
@@ -1553,32 +1596,19 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
           <NavigationProperty Name="SERVICIO_REALIZADO" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_USUARIOS_SISTEMA" FromRole="USUARIOS_SISTEMA" ToRole="SERVICIO_REALIZADO" />
           <NavigationProperty Name="COMUNA" Relationship="SoluinfoModel.FK_USUARIOS_SISTEMA_COMUNA" FromRole="USUARIOS_SISTEMA" ToRole="COMUNA" />
           <NavigationProperty Name="EMPRESA" Relationship="SoluinfoModel.FK_USUARIOS_SISTEMA_EMPRESA" FromRole="USUARIOS_SISTEMA" ToRole="EMPRESA" />
-          <NavigationProperty Name="TIPO_CONTRATO" Relationship="SoluinfoModel.FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO" FromRole="USUARIOS_SISTEMA" ToRole="TIPO_CONTRATO" />
+          <NavigationProperty Name="TIPO_CONTRATO" Relationship="SoluinfoModel.FK_USUARIOS_SISTEMA_TIPO_CONTRATO" FromRole="USUARIOS_SISTEMA" ToRole="TIPO_CONTRATO" />
           <NavigationProperty Name="PERFILES" Relationship="SoluinfoModel.PERFIL_USUARIO_SISTEMA" FromRole="USUARIOS_SISTEMA" ToRole="PERFILES" />
-        </EntityType>
-        <EntityType Name="HORARIO_CONDUCTOR">
-          <Key>
-            <PropertyRef Name="ID_HORARIO" />
-          </Key>
-          <Property Name="ID_HORARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_CARGA_HORARIO" Type="Int32" Nullable="false" />
-          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
-          <Property Name="ID_TERMINAL_INICIO" Type="Int32" Nullable="false" />
-          <Property Name="FECHA_INICIO" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HORARIO_CUBIERTO" Type="Boolean" Nullable="false" />
-          <Property Name="ID_BUS_INICIO" Type="Int32" />
-          <Property Name="ESTADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CARGA_HORARIO" Relationship="SoluinfoModel.FK_HORARIO_CONDUCTOR_CARGA_HORARIO" FromRole="HORARIO_CONDUCTOR" ToRole="CARGA_HORARIO" />
-          <NavigationProperty Name="SERVICIO_REALIZADO" Relationship="SoluinfoModel.FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR" FromRole="HORARIO_CONDUCTOR" ToRole="SERVICIO_REALIZADO" />
         </EntityType>
         <EntityType Name="TIPO_CONTRATO">
           <Key>
             <PropertyRef Name="ID_TIPO_CONTRATO" />
           </Key>
-          <Property Name="ID_TIPO_CONTRATO" Type="Int32" Nullable="false" />
+          <Property Name="ID_TIPO_CONTRATO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NOMBRE_TIPO_CONTRATO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_CORTO_CONTRATRO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CANTIDAD_HORAS_CONTRATO" Type="Time" Nullable="false" Precision="5" />
           <Property Name="ESTADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="USUARIOS_SISTEMA" Relationship="SoluinfoModel.FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO" FromRole="TIPO_CONTRATO" ToRole="USUARIOS_SISTEMA" />
+          <NavigationProperty Name="USUARIOS_SISTEMA" Relationship="SoluinfoModel.FK_USUARIOS_SISTEMA_TIPO_CONTRATO" FromRole="TIPO_CONTRATO" ToRole="USUARIOS_SISTEMA" />
         </EntityType>
         <Association Name="FK_CARGA_HORARIO_USUARIOS_SISTEMA">
           <End Type="SoluinfoModel.USUARIOS_SISTEMA" Role="USUARIOS_SISTEMA" Multiplicity="1" />
@@ -1640,7 +1670,7 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USUARIOS_SISTEMA_operaciones_TIPO_CONTRATO">
+        <Association Name="FK_USUARIOS_SISTEMA_TIPO_CONTRATO">
           <End Type="SoluinfoModel.TIPO_CONTRATO" Role="TIPO_CONTRATO" Multiplicity="1" />
           <End Type="SoluinfoModel.USUARIOS_SISTEMA" Role="USUARIOS_SISTEMA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1649,30 +1679,6 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
             </Principal>
             <Dependent Role="USUARIOS_SISTEMA">
               <PropertyRef Name="ID_TIPO_CONTRATO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HORARIO_CONDUCTOR_CARGA_HORARIO">
-          <End Type="SoluinfoModel.CARGA_HORARIO" Role="CARGA_HORARIO" Multiplicity="1" />
-          <End Type="SoluinfoModel.HORARIO_CONDUCTOR" Role="HORARIO_CONDUCTOR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CARGA_HORARIO">
-              <PropertyRef Name="ID_CARGA_HORARIO" />
-            </Principal>
-            <Dependent Role="HORARIO_CONDUCTOR">
-              <PropertyRef Name="ID_CARGA_HORARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SERVICIO_REALIZADO_HORARIO_CONDUCTOR">
-          <End Type="SoluinfoModel.HORARIO_CONDUCTOR" Role="HORARIO_CONDUCTOR" Multiplicity="1" />
-          <End Type="SoluinfoModel.SERVICIO_REALIZADO" Role="SERVICIO_REALIZADO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HORARIO_CONDUCTOR">
-              <PropertyRef Name="ID_HORARIO" />
-            </Principal>
-            <Dependent Role="SERVICIO_REALIZADO">
-              <PropertyRef Name="ID_HORARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1966,6 +1972,21 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HORARIO_CONDUCTOR">
+            <EntityTypeMapping TypeName="SoluinfoModel.HORARIO_CONDUCTOR">
+              <MappingFragment StoreEntitySet="HORARIO_CONDUCTOR">
+                <ScalarProperty Name="NUMERO_JORNADA" ColumnName="NUMERO_JORNADA" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_BUS_INICIO" ColumnName="ID_BUS_INICIO" />
+                <ScalarProperty Name="HORARIO_CUBIERTO" ColumnName="HORARIO_CUBIERTO" />
+                <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
+                <ScalarProperty Name="ID_TERMINAL_INICIO" ColumnName="ID_TERMINAL_INICIO" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_CARGA_HORARIO" ColumnName="ID_CARGA_HORARIO" />
+                <ScalarProperty Name="ID_HORARIO" ColumnName="ID_HORARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="USUARIOS_SISTEMA">
             <EntityTypeMapping TypeName="SoluinfoModel.USUARIOS_SISTEMA">
               <MappingFragment StoreEntitySet="USUARIOS_SISTEMA">
@@ -1989,24 +2010,12 @@ advertencia 6002: La tabla o vista 'Soluinfo.autorizacion.PROYECTOS_AREAS' no ti
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HORARIO_CONDUCTOR">
-            <EntityTypeMapping TypeName="SoluinfoModel.HORARIO_CONDUCTOR">
-              <MappingFragment StoreEntitySet="HORARIO_CONDUCTOR">
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="ID_BUS_INICIO" ColumnName="ID_BUS_INICIO" />
-                <ScalarProperty Name="HORARIO_CUBIERTO" ColumnName="HORARIO_CUBIERTO" />
-                <ScalarProperty Name="FECHA_INICIO" ColumnName="FECHA_INICIO" />
-                <ScalarProperty Name="ID_TERMINAL_INICIO" ColumnName="ID_TERMINAL_INICIO" />
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
-                <ScalarProperty Name="ID_CARGA_HORARIO" ColumnName="ID_CARGA_HORARIO" />
-                <ScalarProperty Name="ID_HORARIO" ColumnName="ID_HORARIO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TIPO_CONTRATO">
             <EntityTypeMapping TypeName="SoluinfoModel.TIPO_CONTRATO">
               <MappingFragment StoreEntitySet="TIPO_CONTRATO">
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="CANTIDAD_HORAS_CONTRATO" ColumnName="CANTIDAD_HORAS_CONTRATO" />
+                <ScalarProperty Name="NOMBRE_CORTO_CONTRATRO" ColumnName="NOMBRE_CORTO_CONTRATRO" />
                 <ScalarProperty Name="NOMBRE_TIPO_CONTRATO" ColumnName="NOMBRE_TIPO_CONTRATO" />
                 <ScalarProperty Name="ID_TIPO_CONTRATO" ColumnName="ID_TIPO_CONTRATO" />
               </MappingFragment>

@@ -79,6 +79,38 @@ namespace DLL.DAO.Seguridad
             }
         }
 
+        public int GetUsuarioByRut(string rut) 
+        {
+            try
+            {
+                using (SolusegEntities context = new SolusegEntities())
+                {
+
+                    // Obtengo datos del usuario, perfiles y permisos
+                    int usuario = context.USUARIOS_SISTEMA
+                        .Select(x => new DTO_Usuario
+                        {
+                            ID_USUARIO = x.ID_USUARIO,
+                            RUT = x.RUT,
+                            NOMBRE = x.NOMBRE,
+                            APELLIDO_PATERNO = x.APELLIDO_PATERNO,
+                            APELLIDO_MATERNO = x.APELLIDO_MATERNO,
+                            CORREO = x.CORREO,
+                            ADMINISTRADOR = x.ADMINISTRADOR,
+                            ESTADO = x.ESTADO,                            
+                        }).Where(x => x.RUT == rut && x.ESTADO == true).FirstOrDefault().ID_USUARIO;
+
+
+                    return usuario;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.StackTrace);
+                throw;
+            }
+        }
+
         public DTO_Usuario Autenticacion(DTO_Usuario login)
         {
             try

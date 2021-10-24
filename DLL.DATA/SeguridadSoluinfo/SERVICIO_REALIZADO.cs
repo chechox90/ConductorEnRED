@@ -30,7 +30,7 @@ namespace DLL.DATA.SeguridadSoluinfo
         public virtual SENTIDO SENTIDO { get; set; }
         public virtual SERVICIO SERVICIO { get; set; }
         public virtual TERMINAL TERMINAL { get; set; }
-        public virtual USUARIOS_SISTEMA USUARIOS_SISTEMA { get; set; }
         public virtual HORARIO_CONDUCTOR HORARIO_CONDUCTOR { get; set; }
+        public virtual USUARIOS_SISTEMA USUARIOS_SISTEMA { get; set; }
     }
 }

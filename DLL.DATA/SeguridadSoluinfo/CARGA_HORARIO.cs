@@ -28,8 +28,8 @@ namespace DLL.DATA.SeguridadSoluinfo
         public bool ESTADO { get; set; }
         public Nullable<short> NUMERO_JORNADA { get; set; }
     
-        public virtual USUARIOS_SISTEMA USUARIOS_SISTEMA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HORARIO_CONDUCTOR> HORARIO_CONDUCTOR { get; set; }
+        public virtual USUARIOS_SISTEMA USUARIOS_SISTEMA { get; set; }
     }
 }

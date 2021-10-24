@@ -11,7 +11,7 @@ namespace ConductorEnRed.Models
         public string NOMBRE { get; set; }
         public string APELLIDO { get; set; }
         public string NOMBRE_TERMINAL { get; set; }
-        public string TERMINAL_INICIO { get; set; }
+        public string NOMBRE_JORNADA { get; set; }
         public string BUS_INICIO { get; set; }
         public string FECHA_INICIO { get; set; }
         public string HORA_INICIO { get; set; }

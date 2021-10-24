@@ -1,4 +1,5 @@
 ﻿using DLL.DAO.Seguridad.Interfaces;
+using DLL.DTO.CargaHorario;
 using DLL.DTO.Seguridad;
 using DLL.NEGOCIO.Seguridad.Interfaces;
 using System;
@@ -32,6 +33,13 @@ namespace DLL.NEGOCIO.Seguridad
         {
             return I_DAO_Usuario.Autenticacion(login);
         }
+
+        public int GetUsuarioByRut(string rut)
+        {
+            return I_DAO_Usuario.GetUsuarioByRut(rut);
+        }
+
+        
 
     }
 }

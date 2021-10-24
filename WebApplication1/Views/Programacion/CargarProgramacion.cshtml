@@ -313,7 +313,7 @@
                             //$("#FILE-ARCHIVO").val("");
 
                             $('#tblHorarioCargar').DataTable({
-                                dom: "<'card-header flex-column flex-md-row align-items-md-center'<'.titleSegui'><'d-flex justify-content-md-end align-items-center'fBl>>" + "<'row'<'col-12'tr>>" + "<'card-body p-0'tr>" + "<'card-footer'ip>",
+                                dom: "<'card-header flex-column flex-lg-row'<'.d-inline-flex flex-column flex-lg-row'><'d-flex justify-content-md-end'l><'d-flex align-items-start justify-content-md-start'f>>" + "<'card-body p-0'tr>" + "<'card-footer'ip>",
                                 language: {
                                     "url": "../Plugins/DataTables/js/Spanish.json"
                                 },
@@ -323,7 +323,7 @@
                                     { data: 'NOMBRE', title: "Nombre" },
                                     { data: 'APELLIDO', title: "Apellido" },
                                     { data: 'NOMBRE_TERMINAL', title: "Nombre Terminal" },
-                                    { data: 'TERMINAL_INICIO', title: "Terminal Inicio" },
+                                    { data: 'NOMBRE_JORNADA', title: "JORNADA" },
                                     { data: 'FECHA_INICIO', title: "Fecha Inico" },
                                     { data: 'HORA_INICIO', title: "Hora Inicio" }
                                 ],
@@ -349,7 +349,7 @@
         }
 
         function CargarHorarioConductor() {
-            $("#divCargaArchivo").css("display", '');
+           
             var fileUpload = $("#FILE-ARCHIVO").get(0);
             var files = fileUpload.files;
             var fileData = new FormData();
@@ -368,7 +368,9 @@
                 async: false,
                 data: fileData,
                 success: function (data) {
-                    if (data.ErrorMsg != '') {
+                    console.log(data)
+
+                    if (data.EnableError) {
                         alertDanger1(data.ErrorMsg);
                         $(".files input").css("color", "");
                         $(".files").removeClass('added').removeAttr('data-content', '').css("border-color", "");
@@ -385,8 +387,10 @@
                         $("#txtComenatrio").val('');
                         $("#FILE-ARCHIVO").val("");
 
-                        alertSuccess1(data.SuccessMsg);
+                        alertSuccess1(data.ErrorMsg);
                         $("#divTablaHorarios").css('display', 'none');
+                        $("#divCargaArchivo").css("display", '');
+
                     }
                 }
             });

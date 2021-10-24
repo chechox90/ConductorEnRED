@@ -63,7 +63,9 @@
     <Compile Include="Generico\N_Directory.cs" />
     <Compile Include="Generico\N_Excel.cs" />
     <Compile Include="Operaciones\Interfaces\I_N_HorarioConductor.cs" />
+    <Compile Include="Operaciones\Interfaces\I_N_Terminal.cs" />
     <Compile Include="Operaciones\N_HorarioConductor.cs" />
+    <Compile Include="Operaciones\N_Terminal.cs" />
     <Compile Include="Seguridad\Interfaces\I_N_Usuario.cs" />
     <Compile Include="Seguridad\N_Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

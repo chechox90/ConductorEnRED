@@ -20,6 +20,9 @@ namespace WebApplication1
 
             container.RegisterType<I_N_HorarioConductor, N_HorarioConductor>();
             container.RegisterType<I_DAO_HorarioConductor, DAO_HorarioConductor>();
+
+            container.RegisterType<I_N_Terminal, N_Terminal>();
+            container.RegisterType<I_DAO_Terminal, DAO_Terminal>();
             
             // ================================================= Planillas no revisadas
         }

@@ -28,6 +28,7 @@ namespace DLL.DATA.SeguridadSoluinfo
         public bool HORARIO_CUBIERTO { get; set; }
         public Nullable<int> ID_BUS_INICIO { get; set; }
         public bool ESTADO { get; set; }
+        public short NUMERO_JORNADA { get; set; }
     
         public virtual CARGA_HORARIO CARGA_HORARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

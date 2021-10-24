@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CargaHorario\DTO_HorarioConductorMostrar.cs" />
     <Compile Include="Extensiones.cs" />
     <Compile Include="General\PagerDataTable.cs" />
     <Compile Include="General\PagerDataTableOptions.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Seguridad\DTO_ProyectoAgrupacion.cs" />
     <Compile Include="Seguridad\DTO_Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Terminales\DTO_Terminal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

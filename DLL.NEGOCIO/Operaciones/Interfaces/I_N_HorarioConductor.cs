@@ -9,6 +9,8 @@ namespace DLL.NEGOCIO.Operaciones.Interfaces
 {
     public interface I_N_HorarioConductor
     {
-        string SetGuardarHorarioConductor(List<DTO_CargarHorarioConductor> list,string nombreCarga,DateTime fechaCarga, string descripcion);
+        string SetGuardarHorarioConductor(List<DTO_CargarHorarioConductor> list, string nombreCarga, DateTime fechaCarga, string descripcion);
+
+        List<DTO_HorarioConductorMostrar> GetHorarioConductorByRut(string rut);
     }
 }

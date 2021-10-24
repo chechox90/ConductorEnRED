@@ -1,6 +1,9 @@
 ﻿<style>
-    .unMargen {
+    .borderInput {
         margin: 20px;
+    }
+    .divFlot {
+        text-align:right
     }
 </style>
 
@@ -16,11 +19,21 @@
     </div>
 </div>
 
-<div class="card-header">
-    <div>
-        <input type="text" />
+<div class="card">
+    <div class="form-row">
+        <div class="form-group">
+            <input type="text" id="txtRutConductor" placeholder="Ingres un R.U.N." class="form-control borderInput" />
+        </div>
+        <div>
+            <div class="borderInput">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <button id="btnBuscar" class="btn btn-primary borderInput" onclick="BuscarConductorHorario();">Buscar</button>
+        </div>
     </div>
-    <div class="col-12 col-md-12">
+    <div id="divInfoConductor" style="display:none" class="col-12 col-md-12">
         <label>Nombre completo:</label><label id="lblNombreConductor"></label>
         <br />
         <label>R.U.N.:</label><label id="lblRutConductor"></label>
@@ -31,117 +44,122 @@
 
 @*JORNADA MAÑANA*@
 
-<div class="form-row">
+<div class="card">
+    <div class="form-row">
+        <div class="col-md-6">
+            <div class="borderInput">
+                <div>
+                    <div class="card-header">
+                        <h4 class="text-primary">Jornada 1</h4>
+                    </div>
+                    <div class="form-row">
+                        <label class="col-md-3" id="idLunesT1"></label>
+                        <input class="form-control col-md-2 format-time bg-white" type="text" id="txtHoraLunes1" maxlength="5" placeholder="HH:mm" />
+                        <select id="ddlTerminalLu1" class="form-control col-md-3"></select>
+                        <input class="col-md-3" type="text" />
+                    </div>
+                    <div class="form-row">
+                        <label class="col-md-3" id="idMartesT1"></label>
+                        <input class="form-control format-time bg-white col-md-2" type="text" id="txtHoraMartes1" maxlength="5" placeholder="HH:mm" />
+                        <select id="ddlTerminalMa1" class="form-control col-md-3"></select>
+                        <input class="col-md-3" type="text" />
+                    </div>
+                    <div class="form-row">
+                        <label class="col-md-3" id="idMiercolesT1"></label>
+                        <input class="form-control format-time bg-white col-md-2" type="text" id="txtHoraMiercoles1" maxlength="5" placeholder="HH:mm" />
+                        <select id="ddlTerminalMi1" class="form-control col-md-3"></select>
+                        <input class="col-md-3" type="text" />
+                    </div>
+                    <div class="form-row">
+                        <label class="col-md-3" id="idJuevesT1"></label>
+                        <input class="form-control format-time bg-white col-md-2" type="text" id="txtHoraJueves1" maxlength="5" placeholder="HH:mm" />
+                        <select id="ddlTerminalJu1" class="form-control col-md-3"></select>
+                        <input class="col-md-3" type="text" />
+                    </div>
+                    <div class="form-row">
+                        <label class="col-md-3" id="idViernesT1"></label>
+                        <input class="form-control format-time bg-white col-md-2" type="text" id="txtHoraViernes1" maxlength="5" placeholder="HH:mm" />
+                        <select id="ddlTerminalVi1" class="form-control col-md-3"></select>
+                        <input class="col-md-3" type="text" />
+                    </div>
+                    <div class="form-row">
+                        <label class="col-md-3" id="idSabadoT1"></label>
+                        <input class="form-control format-time bg-white col-md-2" type="text" id="txtHoraSabado1" maxlength="5" placeholder="HH:mm" />
+                        <select id="ddlTerminalSa1" class="form-control col-md-3"></select>
+                        <input class="col-md-3" type="text" />
+                    </div>
+                    <div class="form-row">
+                        <label class="col-md-3" id="idDomingoT1"></label>
+                        <input class="form-control format-time bg-white col-md-2" type="text" id="txtHoraDomingo1" maxlength="5" placeholder="HH:mm" />
+                        <select id="ddlTerminalDo1" class="form-control col-md-3"></select>
+                        <input class="col-md-3" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="col-md-6">
-        <div>
-            <div class="card">
+       
+        @*JORNADA TARDE*@
+
+        <div class="col-md-6">
+            <div class="borderInput">
                 <div class="card-header">
-                    <h4 class="text-primary">Jornada 1</h4>
+                    <h4 class="text-primary">Jornada 2</h4>
+                    <div class="clearfix"></div>
+
                 </div>
                 <div class="form-row">
-                    <label class="col-md-3" id="idLunesT1"></label>
-                    <input class="form-control col-md-3 format-time bg-white" type="text" placeholder="HH:mm" />
-                    <select id="ddlTerminalLu1" class="form-control col-md-3"></select>
-                    <input class="col-md-3" type="checkbox" />
+                    <label class="col-md-3" id="idLunesT2"></label>
+                    <input class="form-control format-time bg-white col-md-2" type="text" id="txtHoraLunes2" maxlength="5" placeholder="HH:mm" />
+                    <select id="ddlTerminalLu2" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="text" />
+                </div>
+
+                <div class="form-row">
+                    <label class="col-md-3" id="idMartesT2"></label>
+                    <input class="form-control col-md-2 format-time bg-white" type="text" placeholder="HH:mm" maxlength="5" id="txtHoraMartes2" />
+                    <select id="ddlTerminalMa2" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="text" />
                 </div>
                 <div class="form-row">
-                    <label class="col-md-3" id="idMartesT1"></label>
-                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                    <select id="ddlTerminalMa1" class="form-control col-md-3"></select>
-                    <input class="col-md-3" type="checkbox" />
+                    <label class="col-md-3" id="idMiercolesT2"></label>
+                    <input class="form-control format-time bg-white col-md-2" type="text" placeholder="HH:mm" maxlength="5" id="txtHoraMiercoles2" />
+                    <select id="ddlTerminalMi2" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="text" />
                 </div>
                 <div class="form-row">
-                    <label class="col-md-3" id="idMiercolesT1"></label>
-                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                    <select id="ddlTerminalMi1" class="form-control col-md-3"></select>
-                    <input class="col-md-3" type="checkbox" />
+                    <label class="col-md-3" id="idJuevesT2"></label>
+                    <input class="form-control format-time bg-white col-md-2" type="text" placeholder="HH:mm" maxlength="5" id="txtHoraJueves2" />
+                    <select id="ddlTerminalJu2" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="text" />
                 </div>
                 <div class="form-row">
-                    <label class="col-md-3" id="idJuevesT1"></label>
-                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                    <select id="ddlTerminalJu1" class="form-control col-md-3"></select>
-                    <input class="col-md-3" type="checkbox" />
+                    <label class="col-md-3" id="idViernesT2"></label>
+                    <input class="form-control format-time bg-white col-md-2" type="text" placeholder="HH:mm" maxlength="5" id="txtHoraViernes2" />
+                    <select id="ddlTerminalVi2" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="text" />
                 </div>
                 <div class="form-row">
-                    <label class="col-md-3" id="idViernesT1"></label>
-                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                    <select id="ddlTerminalVi1" class="form-control col-md-3"></select>
-                    <input class="col-md-3" type="checkbox" />
+                    <label class="col-md-3" id="idSabadoT2"></label>
+                    <input class="form-control format-time bg-white col-md-2" type="text" placeholder="HH:mm" maxlength="5" id="txtHoraSabado2" />
+                    <select id="ddlTerminalSa2" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="text" />
                 </div>
                 <div class="form-row">
-                    <label class="col-md-3" id="idSabadoT1"></label>
-                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                    <select id="ddlTerminalSa1" class="form-control col-md-3"></select>
-                    <input class="col-md-3" type="checkbox" />
+                    <label class="col-md-3" id="idDomingoT2"></label>
+                    <input class="form-control format-time bg-white col-md-2" type="text" placeholder="HH:mm" maxlength="5" id="txtHoraDomingo2" />
+                    <select id="ddlTerminalDo2" class="form-control col-md-3"></select>
+                    <input class="col-md-3" type="text" />
                 </div>
-                <div class="form-row">
-                    <label class="col-md-3" id="idDomingoT1"></label>
-                    <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                    <select id="ddlTerminalDo1" class="form-control col-md-3"></select>
-                    <input class="col-md-3" type="checkbox" />
-                </div>
+            </div>
+
+
+        </div>
+        <div class="borderInput ">
+            <div class="divFlot">
+                <button class="btn btn-success">Guardar cambios</button>
             </div>
         </div>
-    </div>
-
-
-
-    @*JORNADA TARDE*@
-
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="text-primary">Jornada 2</h4>
-            </div>
-            <div class="form-row">
-                <label class="col-md-3" id="idLunesT2"></label>
-                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalLu2" class="form-control col-md-3"></select>
-                <input class="col-md-3" type="checkbox" />
-            </div>
-
-            <div class="form-row">
-                <label class="col-md-3" id="idMartesT2"></label>
-                <input class="form-control col-md-3 format-time bg-white" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalMa2" class="form-control col-md-3"></select>
-                <input class="col-md-3" type="checkbox" />
-            </div>
-            <div class="form-row">
-                <label class="col-md-3" id="idMiercolesT2"></label>
-                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalMi2" class="form-control col-md-3"></select>
-                <input class="col-md-3" type="checkbox" />
-            </div>
-            <div class="form-row">
-                <label class="col-md-3" id="idJuevesT2"></label>
-                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalJu2" class="form-control col-md-3"></select>
-                <input class="col-md-3" type="checkbox" />
-            </div>
-            <div class="form-row">
-                <label class="col-md-3" id="idViernesT2"></label>
-                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalVi2" class="form-control col-md-3"></select>
-                <input class="col-md-3" type="checkbox" />
-            </div>
-            <div class="form-row">
-                <label class="col-md-3" id="idSabadoT2"></label>
-                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminalSa2" class="form-control col-md-3"></select>
-                <input class="col-md-3" type="checkbox" />
-            </div>
-            <div class="form-row">
-                <label class="col-md-3" id="idDomingoT2"></label>
-                <input class="form-control format-time bg-white col-md-3" type="text" placeholder="HH:mm" />
-                <select id="ddlTerminaldo2" class="form-control col-md-3"></select>
-                <input class="col-md-3" type="checkbox" />
-            </div>
-        </div>
-    </div>
-
-    <div>
-        <button class="btn btn-success">Guardar cambios</button>
     </div>
 </div>
 
@@ -150,6 +168,8 @@
 
 @section scripts
 {
+    <script src="@Url.Content("~/Scripts/general-functions.js")"></script>
+
     <script>
         $(document).ready(function () {
             CargaFechasDias();
@@ -159,6 +179,8 @@
                     return false;
                 }
             });
+
+            CargarTerminalesCmb();
         });
 
         function CargaFechasDias() {
@@ -198,11 +220,138 @@
                     alertDanger("Ups! algo ha salido mal, pero lo estamos solucionando");
                 }
             });
+        }
+
+        function BuscarConductorHorario() {
+            $.ajax({
+                url: '../Reprogramacion/GetConductorHorario',
+                type: 'post',
+                datatype: 'json',
+                async: false,
+                data: {
+                    "RutConductor": $("#txtRutConductor").val()
+                },
+                success: function (data) {
+                    //Fechas
+                    $("#idLunesT1").text("Lunes " + data.data[0]["FECHA_INICIO"]);
+                    $("#idMartesT1").text("Martes " + data.data[2]["FECHA_INICIO"]);
+                    $("#idMiercolesT1").text("Miércoles " + data.data[4]["FECHA_INICIO"]);
+                    $("#idJuevesT1").text("Jueves " + data.data[6]["FECHA_INICIO"]);
+                    $("#idViernesT1").text("Viernes " + data.data[8]["FECHA_INICIO"]);
+                    $("#idSabadoT1").text("Sábado " + data.data[10]["FECHA_INICIO"]);
+                    $("#idDomingoT1").text("Domingo " + data.data[12]["FECHA_INICIO"]);
+
+                    $("#idLunesT2").text("Lunes " + data.data[1]["FECHA_INICIO"]);
+                    $("#idMartesT2").text("Martes " + data.data[3]["FECHA_INICIO"]);
+                    $("#idMiercolesT2").text("Miércoles " + data.data[5]["FECHA_INICIO"]);
+                    $("#idJuevesT2").text("Jueves " + data.data[7]["FECHA_INICIO"]);
+                    $("#idViernesT2").text("Viernes " + data.data[9]["FECHA_INICIO"]);
+                    $("#idSabadoT2").text("Sábado " + data.data[11]["FECHA_INICIO"]);
+                    $("#idDomingoT2").text("Domingo " + data.data[13]["FECHA_INICIO"]);
 
 
+                    //Horas
+                    $("#txtHoraLunes1").val(data.data[0]["HORA_INICIO"]);
+                    $("#txtHoraMartes1").val(data.data[2]["HORA_INICIO"]);
+                    $("#txtHoraMiercoles1").val(data.data[4]["HORA_INICIO"]);
+                    $("#txtHoraJueves1").val(data.data[6]["HORA_INICIO"]);
+                    $("#txtHoraViernes1").val(data.data[8]["HORA_INICIO"]);
+                    $("#txtHoraSabado1").val(data.data[10]["HORA_INICIO"]);
+                    $("#txtHoraDomingo1").val(data.data[12]["HORA_INICIO"]);
+
+                    $("#txtHoraLunes2").val(data.data[1]["HORA_INICIO"]);
+                    $("#txtHoraMartes2").val(data.data[3]["HORA_INICIO"]);
+                    $("#txtHoraMiercoles2").val(data.data[5]["HORA_INICIO"]);
+                    $("#txtHoraJueves2").val(data.data[7]["HORA_INICIO"]);
+                    $("#txtHoraViernes2").val(data.data[9]["HORA_INICIO"]);
+                    $("#txtHoraSabado2").val(data.data[11]["HORA_INICIO"]);
+                    $("#txtHoraDomingo2").val(data.data[13]["HORA_INICIO"]);
+
+                }
+            });
 
         }
 
+        function CargarTerminalesCmb() {
+            $.ajax({
+                url: '../Reprogramacion/GetCargarTerminalesCmb',
+                type: 'post',
+                datatype: 'json',
+                async: false,
+                data: {
+                    "RutConductor": $("#txtRutConductor").val()
+                },
+                success: function (data) {
+                    for (var i = 0; i < data.data.length; i++) {
+                        var optionLu1 = $(document.createElement('option'));
+                        var optionMa1 = $(document.createElement('option'));
+                        var optionMi1 = $(document.createElement('option'));
+                        var optionJu1 = $(document.createElement('option'));
+                        var optionVi1 = $(document.createElement('option'));
+                        var optionSa1 = $(document.createElement('option'));
+                        var optionDo1 = $(document.createElement('option'));
+
+                        optionLu1.val(data.data[i]["ID_TERMINAL"]);
+                        optionLu1.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionMa1.val(data.data[i]["ID_TERMINAL"]);
+                        optionMa1.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionMi1.val(data.data[i]["ID_TERMINAL"]);
+                        optionMi1.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionJu1.val(data.data[i]["ID_TERMINAL"]);
+                        optionJu1.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionVi1.val(data.data[i]["ID_TERMINAL"]);
+                        optionVi1.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionSa1.val(data.data[i]["ID_TERMINAL"]);
+                        optionSa1.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionDo1.val(data.data[i]["ID_TERMINAL"]);
+                        optionDo1.text(data.data[i]["NOMBRE_TERMINAL"]);
+
+                        var optionLu2 = $(document.createElement('option'));
+                        var optionMa2 = $(document.createElement('option'));
+                        var optionMi2 = $(document.createElement('option'));
+                        var optionJu2 = $(document.createElement('option'));
+                        var optionVi2 = $(document.createElement('option'));
+                        var optionSa2 = $(document.createElement('option'));
+                        var optionDo2 = $(document.createElement('option'));
+
+                        optionLu2.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionLu2.val(data.data[i]["ID_TERMINAL"]);
+                        optionMa2.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionMa2.val(data.data[i]["ID_TERMINAL"]);
+                        optionMi2.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionJu2.val(data.data[i]["ID_TERMINAL"]);
+                        optionJu2.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionVi2.val(data.data[i]["ID_TERMINAL"]);
+                        optionVi2.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionSa2.val(data.data[i]["ID_TERMINAL"]);
+                        optionSa2.text(data.data[i]["NOMBRE_TERMINAL"]);
+                        optionDo2.val(data.data[i]["ID_TERMINAL"]);
+                        optionDo2.text(data.data[i]["NOMBRE_TERMINAL"]);
+
+                        //COMBOBOX TERMINALES
+                        //MAÑANA
+                        $("#ddlTerminalLu1").append(optionLu1);
+                        $("#ddlTerminalMa1").append(optionMa1);
+                        $("#ddlTerminalMi1").append(optionMi1);
+                        $("#ddlTerminalJu1").append(optionJu1);
+                        $("#ddlTerminalVi1").append(optionVi1);
+                        $("#ddlTerminalSa1").append(optionSa1);
+                        $("#ddlTerminalDo1").append(optionDo1);
+
+                        //TARDE
+                        $("#ddlTerminalLu2").append(optionLu2);
+                        $("#ddlTerminalMa2").append(optionMa2);
+                        $("#ddlTerminalMi2").append(optionMi2);
+                        $("#ddlTerminalJu2").append(optionJu2);
+                        $("#ddlTerminalVi2").append(optionVi2);
+                        $("#ddlTerminalSa2").append(optionSa2);
+                        $("#ddlTerminalDo2").append(optionDo2);
+                    }
+
+                }
+
+            });
+        }
 
     </script>
 }

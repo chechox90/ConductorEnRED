@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -9,7 +10,9 @@ using System.Web;
 using System.Web.Mvc;
 using ConductorEnRed.Models;
 using DLL.DTO.CargaHorario;
+using DLL.DTO.Terminales;
 using DLL.NEGOCIO.Operaciones.Interfaces;
+using DLL.NEGOCIO.Seguridad.Interfaces;
 
 namespace WebApplication1.Controllers
 {
@@ -18,9 +21,15 @@ namespace WebApplication1.Controllers
         OleDbConnection Econ;
 
         private readonly I_N_HorarioConductor _i_n_HorarioConductor;
-        public ReprogramacionController(I_N_HorarioConductor i_n_HorarioConductor)
+        private readonly I_N_Terminal _i_n_Terminal;
+        private readonly I_N_Usuario _i_n_usuario;
+        public ReprogramacionController(I_N_HorarioConductor i_n_HorarioConductor,
+            I_N_Terminal i_n_Terminal,
+            I_N_Usuario i_n_usuario)
         {
             this._i_n_HorarioConductor = i_n_HorarioConductor;
+            this._i_n_Terminal = i_n_Terminal;
+            this._i_n_usuario = i_n_usuario;
         }
 
         public ActionResult Index()
@@ -41,6 +50,102 @@ namespace WebApplication1.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult GetConductorHorario(string RutConductor)
+        {
+            try
+            {
+                if (ValidaRut(RutConductor))
+                {
+                    List<DTO_HorarioConductorMostrar> dto_Horario = _i_n_HorarioConductor.GetHorarioConductorByRut(RutConductor);
+                    List<DTO_HorarioConductorMostrar> list = new List<DTO_HorarioConductorMostrar>();
+                    foreach (var item in dto_Horario)
+                    {
+                        DTO_HorarioConductorMostrar carga = new DTO_HorarioConductorMostrar();
+                        carga.FECHA_INICIO = item.FECHA_HORA_INICIO.ToString().Split(' ')[0];
+
+                        carga.HORA_INICIO = item.FECHA_HORA_INICIO.ToString("dd/MM/yyyy HH:mm").Split(' ')[1];
+
+
+                        carga.FECHA_HORA_INICIO = item.FECHA_HORA_INICIO;
+                        carga.ID_TERMINAL = item.ID_TERMINAL;
+
+                        list.Add(carga);
+                    }
+                    list = list.OrderBy(x => x.FECHA_HORA_INICIO).ToList();
+
+                    if (list.Count > 0)
+                    {
+                        return Json(new
+                        {
+                            data = list,
+                            ErrorMsg = "",
+                            JsonRequestBehavior.AllowGet
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            EnableError = true,
+                            ErrorTitle = "Error",
+                            ErrorMsg = "Error en la <b>carga de datos</b>"
+                        });
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        EnableError = true,
+                        ErrorTitle = "Error",
+                        ErrorMsg = "El R.U.N. ingresado <b>no es válido</b>"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult GetCargarTerminalesCmb()
+        {
+            try
+            {
+                List<DTO_Terminal> DtoTerminal = new List<DTO_Terminal>();
+                DtoTerminal = _i_n_Terminal.GetTerminalByAllActive();
+
+                if (DtoTerminal != null)
+                {
+                    return Json(new
+                    {
+                        data = DtoTerminal,
+                        ErrorMsg = "",
+                        JsonRequestBehavior.AllowGet
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        EnableError = true,
+                        ErrorTitle = "Error",
+                        ErrorMsg = "Ha ocurrido una insidencia al <b>obtener los terminales</b>"
+                    });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
+
         public ActionResult CargaHorarioConductor()
         {
             try
@@ -50,8 +155,6 @@ namespace WebApplication1.Controllers
                 string comentario = Request.Form["Comenatrio"];
 
                 string mensajeError = "";
-
-                int num = 0;
 
                 if (Request.Files.Count > 0)
                 {
@@ -67,8 +170,8 @@ namespace WebApplication1.Controllers
                     {
                         CargaArchivoModel carga = new CargaArchivoModel();
 
-                        string rutString = resultadoTabla.Rows[i][0].ToString();
-                        int sinGuion = int.Parse(resultadoTabla.Rows[i][0].ToString().Split('-')[0]);
+                        string rutString = resultadoTabla.Rows[i][0].ToString().Replace(".", "");
+                        int sinGuion = int.Parse(rutString.Split('-')[0]);
                         string guion = resultadoTabla.Rows[i][0].ToString().Split('-')[1];
 
                         if (!ValidaRut(rutString))
@@ -83,7 +186,7 @@ namespace WebApplication1.Controllers
                         }
                         else
                         {
-                            carga.RUT = resultadoTabla.Rows[i][0].ToString();
+                            carga.RUT = rutString;
 
                         }
 
@@ -91,18 +194,16 @@ namespace WebApplication1.Controllers
                         carga.APELLIDO = resultadoTabla.Rows[i][2].ToString();
                         carga.NOMBRE_TERMINAL = resultadoTabla.Rows[i][3].ToString();
 
-                        if (int.TryParse(resultadoTabla.Rows[i][4].ToString(), out num))
-                            carga.TERMINAL_INICIO = resultadoTabla.Rows[i][4].ToString();
-                        else
-                        {
-                            mensajeError = "La fila " + (i + 1) + "no contiene un formato numérico válido.";
-                            break;
-                        }
+                        //else
+                        //{
+                        //    mensajeError = "La fila " + (i + 1) + "no contiene un formato numérico válido.";
+                        //    break;
+                        //}
 
-                        carga.BUS_INICIO = resultadoTabla.Rows[i][5].ToString();
+                        carga.BUS_INICIO = resultadoTabla.Rows[i][4].ToString();
+                        carga.NOMBRE_JORNADA = resultadoTabla.Rows[i][5].ToString();
                         carga.FECHA_INICIO = resultadoTabla.Rows[i][6].ToString();
                         carga.HORA_INICIO = resultadoTabla.Rows[i][7].ToString();
-                        carga.FECHA_HORA_INICIO = DateTime.Parse(resultadoTabla.Rows[i][6].ToString() + " " + resultadoTabla.Rows[i][7].ToString());
 
                         list.Add(carga);
                     }
@@ -188,7 +289,6 @@ namespace WebApplication1.Controllers
 
         public static bool ValidaRut(string rut)
         {
-            rut = rut.Replace(".", "").ToUpper();
             Regex expresion = new Regex("^([0-9]+-[0-9K])$");
             string dv = rut.Substring(rut.Length - 1, 1);
             if (!expresion.IsMatch(rut))
@@ -253,7 +353,6 @@ namespace WebApplication1.Controllers
         }
 
 
-
         [HttpPost]
         public ActionResult SetGuardarHorarioConductor()
         {
@@ -273,44 +372,49 @@ namespace WebApplication1.Controllers
                     string filepath = "/ExcelFolder/" + filename;
                     file.SaveAs(Path.Combine(Server.MapPath("/excelfolder"), filename));
 
+                    DateTime FechaHoy = DateTime.Now;
+
                     DataTable resultadoTabla = InsertExceldata(filepath, filename);
                     List<DTO_CargarHorarioConductor> list = new List<DTO_CargarHorarioConductor>();
                     for (int i = 1; i < resultadoTabla.Rows.Count; i++)
                     {
                         DTO_CargarHorarioConductor carga = new DTO_CargarHorarioConductor();
 
-                        carga.TERMINAL_INICIO = int.Parse(resultadoTabla.Rows[i][4].ToString().Trim()); 
-                        if (resultadoTabla.Rows[i][5].ToString() != "")
-                            carga.BUS_INICIO = int.Parse(resultadoTabla.Rows[i][5].ToString().Trim());
+                        string rutString = resultadoTabla.Rows[i][0].ToString().Replace(".", "");
+                        int sinGuion = int.Parse(rutString.Split('-')[0]);
+                        string guion = resultadoTabla.Rows[i][0].ToString().Split('-')[1];
+                        if (ValidaRut(rutString))
+                            carga.ID_CONDUCTOR = _i_n_usuario.GetUsuarioByRut(rutString);
+
+                        carga.TERMINAL_INICIO = _i_n_Terminal.GetTerminalByNombre(resultadoTabla.Rows[i][3].ToString(), 1);
+
+                        if (resultadoTabla.Rows[i][4].ToString() != "")
+                            carga.BUS_INICIO = int.Parse(resultadoTabla.Rows[i][4].ToString().Trim());
                         else
-                            carga.BUS_INICIO = 0;                        
-                        carga.FECHA_HORA_INICIO = DateTime.Parse(resultadoTabla.Rows[i][6].ToString() + " " + resultadoTabla.Rows[i][7].ToString());
+                            carga.BUS_INICIO = 0;
+
+                        if (resultadoTabla.Rows[i][5].ToString().ToUpper().Equals("UNO"))
+                            carga.NUMERO_JORNADA = 1;
+                        else
+                            carga.NUMERO_JORNADA = 1;
+
+                        carga.FECHA_HORA_INICIO = DateTime.ParseExact(resultadoTabla.Rows[i][6].ToString() + " " + resultadoTabla.Rows[i][7].ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture);
 
                         list.Add(carga);
                     }
 
                     list = list.OrderBy(x => x.FECHA_HORA_INICIO).ToList();
 
-                    string resultado = _i_n_HorarioConductor.SetGuardarHorarioConductor(list, NombreArchivo,DateTime.Parse(FechaCarga), comentario);
+                    string resultado = _i_n_HorarioConductor.SetGuardarHorarioConductor(list, NombreArchivo, DateTime.Parse(FechaCarga), comentario);
 
 
                     if (resultado != "")
                     {
                         return Json(new
                         {
-                            EnableError = true,
+                            EnableError = false,
                             ErrorTitle = "Correcto",
-                            SuccessMsg = resultado
-                        });
-                    }
-
-                    if (list.Count > 0)
-                    {
-                        return Json(new
-                        {
-                            data = list,
-                            ErrorMsg = "",
-                            JsonRequestBehavior.AllowGet
+                            ErrorMsg = resultado
                         });
                     }
                     else
@@ -319,7 +423,7 @@ namespace WebApplication1.Controllers
                         {
                             EnableError = true,
                             ErrorTitle = "Error",
-                            ErrorMsg = "Error en la <b>carga de datos</b>"
+                            ErrorMsg = "Error al <b>guardar los datos</b>"
                         });
                     }
                 }

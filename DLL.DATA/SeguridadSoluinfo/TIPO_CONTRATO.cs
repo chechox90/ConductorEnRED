@@ -22,6 +22,8 @@ namespace DLL.DATA.SeguridadSoluinfo
     
         public int ID_TIPO_CONTRATO { get; set; }
         public string NOMBRE_TIPO_CONTRATO { get; set; }
+        public string NOMBRE_CORTO_CONTRATRO { get; set; }
+        public System.TimeSpan CANTIDAD_HORAS_CONTRATO { get; set; }
         public bool ESTADO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
