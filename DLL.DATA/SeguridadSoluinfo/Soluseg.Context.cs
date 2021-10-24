@@ -34,8 +34,21 @@ namespace DLL.DATA.SeguridadSoluinfo
         public virtual DbSet<PROYECTOS> PROYECTOS { get; set; }
         public virtual DbSet<VERSION_PROYECTO> VERSION_PROYECTO { get; set; }
         public virtual DbSet<PERMISOS_ESPECIALES> PERMISOS_ESPECIALES { get; set; }
-        public virtual DbSet<USUARIOS_SISTEMA> USUARIOS_SISTEMA { get; set; }
         public virtual DbSet<NOVEDADES> NOVEDADES { get; set; }
         public virtual DbSet<TIPOS_NOVEDADES> TIPOS_NOVEDADES { get; set; }
+        public virtual DbSet<BITACORA_MOVIMIENTOS> BITACORA_MOVIMIENTOS { get; set; }
+        public virtual DbSet<TIPO_MOVIEMIENTO_HORARIO> TIPO_MOVIEMIENTO_HORARIO { get; set; }
+        public virtual DbSet<BUS> BUS { get; set; }
+        public virtual DbSet<CARGA_HORARIO> CARGA_HORARIO { get; set; }
+        public virtual DbSet<COMUNA> COMUNA { get; set; }
+        public virtual DbSet<EMPRESA> EMPRESA { get; set; }
+        public virtual DbSet<PARAMETROS> PARAMETROS { get; set; }
+        public virtual DbSet<SENTIDO> SENTIDO { get; set; }
+        public virtual DbSet<SERVICIO> SERVICIO { get; set; }
+        public virtual DbSet<SERVICIO_REALIZADO> SERVICIO_REALIZADO { get; set; }
+        public virtual DbSet<TERMINAL> TERMINAL { get; set; }
+        public virtual DbSet<USUARIOS_SISTEMA> USUARIOS_SISTEMA { get; set; }
+        public virtual DbSet<HORARIO_CONDUCTOR> HORARIO_CONDUCTOR { get; set; }
+        public virtual DbSet<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
     }
 }

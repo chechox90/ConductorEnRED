@@ -15,5 +15,6 @@ namespace ConductorEnRed.Models
         public string BUS_INICIO { get; set; }
         public string FECHA_INICIO { get; set; }
         public string HORA_INICIO { get; set; }
+        public DateTime FECHA_HORA_INICIO { get; set; }
     }
 }

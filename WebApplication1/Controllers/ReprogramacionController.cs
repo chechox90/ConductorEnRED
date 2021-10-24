@@ -8,12 +8,20 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using ConductorEnRed.Models;
+using DLL.DTO.CargaHorario;
+using DLL.NEGOCIO.Operaciones.Interfaces;
 
 namespace WebApplication1.Controllers
 {
     public class ReprogramacionController : Controller
     {
         OleDbConnection Econ;
+
+        private readonly I_N_HorarioConductor _i_n_HorarioConductor;
+        public ReprogramacionController(I_N_HorarioConductor i_n_HorarioConductor)
+        {
+            this._i_n_HorarioConductor = i_n_HorarioConductor;
+        }
 
         public ActionResult Index()
         {
@@ -52,7 +60,7 @@ namespace WebApplication1.Controllers
                     string filename = file.FileName;
                     string filepath = "/ExcelFolder/" + filename;
                     file.SaveAs(Path.Combine(Server.MapPath("/excelfolder"), filename));
-                    
+
                     DataTable resultadoTabla = InsertExceldata(filepath, filename);
                     List<CargaArchivoModel> list = new List<CargaArchivoModel>();
                     for (int i = 1; i < resultadoTabla.Rows.Count; i++)
@@ -94,9 +102,12 @@ namespace WebApplication1.Controllers
                         carga.BUS_INICIO = resultadoTabla.Rows[i][5].ToString();
                         carga.FECHA_INICIO = resultadoTabla.Rows[i][6].ToString();
                         carga.HORA_INICIO = resultadoTabla.Rows[i][7].ToString();
+                        carga.FECHA_HORA_INICIO = DateTime.Parse(resultadoTabla.Rows[i][6].ToString() + " " + resultadoTabla.Rows[i][7].ToString());
 
                         list.Add(carga);
                     }
+
+                    list = list.OrderBy(x => x.FECHA_HORA_INICIO).ToList();
 
                     if (mensajeError != "")
                     {
@@ -241,63 +252,98 @@ namespace WebApplication1.Controllers
             });
         }
 
+
+
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult SetGuardarHorarioConductor()
         {
             try
             {
-                // TODO: Add insert logic here
+                string NombreArchivo = Request.Form["NombreCarga"];
+                string FechaCarga = Request.Form["FechaCarga"];
+                string comentario = Request.Form["Comenatrio"];
 
-                return RedirectToAction("Index");
+                string mensajeError = "";
+
+                if (Request.Files.Count > 0)
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    string filename = file.FileName;
+                    string filepath = "/ExcelFolder/" + filename;
+                    file.SaveAs(Path.Combine(Server.MapPath("/excelfolder"), filename));
+
+                    DataTable resultadoTabla = InsertExceldata(filepath, filename);
+                    List<DTO_CargarHorarioConductor> list = new List<DTO_CargarHorarioConductor>();
+                    for (int i = 1; i < resultadoTabla.Rows.Count; i++)
+                    {
+                        DTO_CargarHorarioConductor carga = new DTO_CargarHorarioConductor();
+
+                        carga.TERMINAL_INICIO = int.Parse(resultadoTabla.Rows[i][4].ToString().Trim()); 
+                        if (resultadoTabla.Rows[i][5].ToString() != "")
+                            carga.BUS_INICIO = int.Parse(resultadoTabla.Rows[i][5].ToString().Trim());
+                        else
+                            carga.BUS_INICIO = 0;                        
+                        carga.FECHA_HORA_INICIO = DateTime.Parse(resultadoTabla.Rows[i][6].ToString() + " " + resultadoTabla.Rows[i][7].ToString());
+
+                        list.Add(carga);
+                    }
+
+                    list = list.OrderBy(x => x.FECHA_HORA_INICIO).ToList();
+
+                    string resultado = _i_n_HorarioConductor.SetGuardarHorarioConductor(list, NombreArchivo,DateTime.Parse(FechaCarga), comentario);
+
+
+                    if (resultado != "")
+                    {
+                        return Json(new
+                        {
+                            EnableError = true,
+                            ErrorTitle = "Correcto",
+                            SuccessMsg = resultado
+                        });
+                    }
+
+                    if (list.Count > 0)
+                    {
+                        return Json(new
+                        {
+                            data = list,
+                            ErrorMsg = "",
+                            JsonRequestBehavior.AllowGet
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            EnableError = true,
+                            ErrorTitle = "Error",
+                            ErrorMsg = "Error en la <b>carga de datos</b>"
+                        });
+                    }
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        EnableError = true,
+                        ErrorTitle = "Error",
+                        ErrorMsg = "Error en la <b>carga de datos</b>"
+                    });
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new
+                {
+                    EnableError = true,
+                    ErrorTitle = "Error",
+                    ErrorMsg = "Error en la <b>carga de datos</b>"
+                });
             }
         }
 
-        // GET: Reprogramacion/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: Reprogramacion/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Reprogramacion/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Reprogramacion/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

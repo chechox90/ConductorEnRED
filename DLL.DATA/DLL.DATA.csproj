@@ -56,10 +56,31 @@
     <Compile Include="SeguridadSoluinfo\AREAS.cs">
       <DependentUpon>Soluseg.tt</DependentUpon>
     </Compile>
+    <Compile Include="SeguridadSoluinfo\BITACORA_MOVIMIENTOS.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\BUS.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\CARGA_HORARIO.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\COMUNA.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\EMPRESA.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\HORARIO_CONDUCTOR.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
     <Compile Include="SeguridadSoluinfo\MENU.cs">
       <DependentUpon>Soluseg.tt</DependentUpon>
     </Compile>
     <Compile Include="SeguridadSoluinfo\NOVEDADES.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\PARAMETROS.cs">
       <DependentUpon>Soluseg.tt</DependentUpon>
     </Compile>
     <Compile Include="SeguridadSoluinfo\PERFILES.cs">
@@ -77,6 +98,15 @@
     <Compile Include="SeguridadSoluinfo\PROYECTO_AGRUPACION.cs">
       <DependentUpon>Soluseg.tt</DependentUpon>
     </Compile>
+    <Compile Include="SeguridadSoluinfo\SENTIDO.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\SERVICIO.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\SERVICIO_REALIZADO.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
     <Compile Include="SeguridadSoluinfo\Soluseg.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -92,7 +122,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Soluseg.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SeguridadSoluinfo\TERMINAL.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
     <Compile Include="SeguridadSoluinfo\TIPOS_NOVEDADES.cs">
+      <DependentUpon>Soluseg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeguridadSoluinfo\TIPO_MOVIEMIENTO_HORARIO.cs">
       <DependentUpon>Soluseg.tt</DependentUpon>
     </Compile>
     <Compile Include="SeguridadSoluinfo\USUARIOS_SISTEMA.cs">

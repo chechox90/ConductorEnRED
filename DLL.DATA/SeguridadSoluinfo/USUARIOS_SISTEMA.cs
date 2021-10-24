@@ -17,17 +17,23 @@ namespace DLL.DATA.SeguridadSoluinfo
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public USUARIOS_SISTEMA()
         {
+            this.CARGA_HORARIO = new HashSet<CARGA_HORARIO>();
             this.PERMISOS_ESPECIALES = new HashSet<PERMISOS_ESPECIALES>();
+            this.SERVICIO_REALIZADO = new HashSet<SERVICIO_REALIZADO>();
             this.PERFILES = new HashSet<PERFILES>();
         }
     
         public int ID_USUARIO { get; set; }
+        public int ID_EMPRESA { get; set; }
+        public int ID_COMUNA { get; set; }
+        public int ID_TIPO_CONTRATO { get; set; }
         public string CLAVE { get; set; }
         public string CORREO { get; set; }
         public string CORREO_ALTERNATIVO { get; set; }
         public string CODIGO_BARRA { get; set; }
         public string RUT { get; set; }
         public string NOMBRE { get; set; }
+        public string SEGUNDO_NOMBRE { get; set; }
         public string APELLIDO_PATERNO { get; set; }
         public string APELLIDO_MATERNO { get; set; }
         public Nullable<System.DateTime> CAMBIO_PASSWORD { get; set; }
@@ -36,7 +42,14 @@ namespace DLL.DATA.SeguridadSoluinfo
         public bool ESTADO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CARGA_HORARIO> CARGA_HORARIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PERMISOS_ESPECIALES> PERMISOS_ESPECIALES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SERVICIO_REALIZADO> SERVICIO_REALIZADO { get; set; }
+        public virtual COMUNA COMUNA { get; set; }
+        public virtual EMPRESA EMPRESA { get; set; }
+        public virtual TIPO_CONTRATO TIPO_CONTRATO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PERFILES> PERFILES { get; set; }
     }
