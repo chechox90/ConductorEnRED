@@ -104,6 +104,7 @@ namespace DLL.DAO.Operaciones
                                                                ID_USUARIO = usr.ID_USUARIO,
                                                                RUT = usr.RUT,
                                                                NOMBRE = usr.NOMBRE,
+                                                               SEGUNDO_NOMBRE = usr.SEGUNDO_NOMBRE,
                                                                APELLIDO_PATERNO = usr.APELLIDO_PATERNO,
                                                                APELLIDO_MATERNO = usr.APELLIDO_MATERNO,
                                                                ESTADO = usr.ESTADO,

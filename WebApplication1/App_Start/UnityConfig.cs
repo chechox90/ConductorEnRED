@@ -1,4 +1,5 @@
 ﻿using System;
+using ConductorEnRed.Controllers;
 using Microsoft.Practices.Unity;
 using WebApplication1.Controllers;
 
@@ -27,6 +28,7 @@ namespace WebApplication1.App_Start
             ContainerBootstrapper.RegisterTypes(container);
             container.RegisterType<AccountController>();
             container.RegisterType<ReprogramacionController>();
+            container.RegisterType<MantenedorController>();
             // ==================================================== 
 
         }

@@ -11,5 +11,6 @@ namespace DLL.NEGOCIO.Operaciones.Interfaces
     {
         int GetTerminalByNombre(string nombreTerminal, int idEmpresa);
         List<DTO_Terminal> GetTerminalByAllActive();
+        List<DTO_Terminal> GetTerminalByAllActiveForTable();
     }
 }

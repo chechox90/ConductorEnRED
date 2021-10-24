@@ -62,14 +62,15 @@ namespace WebApplication1.Controllers
                     foreach (var item in dto_Horario)
                     {
                         DTO_HorarioConductorMostrar carga = new DTO_HorarioConductorMostrar();
+                        carga.ID_USUARIO = item.ID_USUARIO;
                         carga.FECHA_INICIO = item.FECHA_HORA_INICIO.ToString().Split(' ')[0];
 
                         carga.HORA_INICIO = item.FECHA_HORA_INICIO.ToString("dd/MM/yyyy HH:mm").Split(' ')[1];
-
+                        carga.RUT = item.RUT;
 
                         carga.FECHA_HORA_INICIO = item.FECHA_HORA_INICIO;
                         carga.ID_TERMINAL = item.ID_TERMINAL;
-
+                        carga.NOMBRE_COMPLETO = item.NOMBRE + " " + item.SEGUNDO_NOMBRE + " " + item.APELLIDO_PATERNO + " " + item.APELLIDO_MATERNO;
                         list.Add(carga);
                     }
                     list = list.OrderBy(x => x.FECHA_HORA_INICIO).ToList();
@@ -143,7 +144,7 @@ namespace WebApplication1.Controllers
 
                 throw;
             }
-           
+
         }
 
         public ActionResult CargaHorarioConductor()
@@ -448,6 +449,18 @@ namespace WebApplication1.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult SetGuaradarCambioHorario(List<DTO_HorarioReprogramado> ObjetoHorario)
+        {
+            var ObHor = ObjetoHorario;
+
+            return Json(new
+            {
+                EnableError = false,
+                ErrorTitle = "Correcto",
+                ErrorMsg = ""
+            });
+        }
 
     }
 }
